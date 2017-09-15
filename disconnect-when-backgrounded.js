@@ -17,8 +17,14 @@ function disconnectIfHidden() {
     removeDisconnectTimeout();
 
     if (document.hidden) {
-        if(!Package["iron:router"] || disconnectVoids.indexOf(Router.current().route.getName()) < 0){
-            createDisconnectTimeout();
+        let currentRouteName = null
+        if (Package["kadira:flow-router"]) {
+          currentRouteName = FlowRouter.getRouteName();
+        } else if (Package["iron:router"]) {
+          currentRouteName = Router.current().route.getName();
+        }
+        if (currentRouteName === null || disconnectVoids.indexOf(currentRouteName) === -1) {
+          createDisconnectTimeout();
         }
     } else {
         Meteor.reconnect();
