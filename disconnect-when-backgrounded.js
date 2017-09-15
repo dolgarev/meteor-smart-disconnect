@@ -18,7 +18,7 @@ function disconnectIfHidden() {
 
     if (document.hidden) {
         let currentRouteName = null
-        if (Package["kadira:flow-router"]) {
+        if (Package["kadira:flow-router"] || Package["ostrio:flow-router-extra"]) {
           currentRouteName = FlowRouter.getRouteName();
         } else if (Package["iron:router"]) {
           currentRouteName = Router.current().route.getName();
